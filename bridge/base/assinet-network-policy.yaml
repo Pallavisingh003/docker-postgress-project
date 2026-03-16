@@ -1,0 +1,24 @@
+#! assinet-network-policy.yaml
+# Generated code, do not edit
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+    name: assinet-network-policy
+    namespace: docker-postgress-project
+spec:
+    podSelector:
+        matchLabels:
+            com.docker.compose.network.assinet: "true"
+    policyTypes:
+        - Ingress
+        - Egress
+    ingress:
+        - from:
+            - podSelector:
+                matchLabels:
+                    com.docker.compose.network.assinet: "true"
+    egress:
+        - to:
+            - podSelector:
+                matchLabels:
+                    com.docker.compose.network.assinet: "true"

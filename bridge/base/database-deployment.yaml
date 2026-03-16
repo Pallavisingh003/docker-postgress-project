@@ -1,0 +1,47 @@
+#! database-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: database
+    namespace: docker-postgress-project
+    labels:
+        com.docker.compose.project: docker-postgress-project
+        com.docker.compose.service: database
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: docker-postgress-project
+            com.docker.compose.service: database
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: docker-postgress-project
+                com.docker.compose.service: database
+                com.docker.compose.network.assinet: "true"
+        spec:
+            restartPolicy: Always
+            containers:
+                - name: postgres-db
+                  image: docker-postgress-project-database
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: POSTGRES_DB
+                      value: "mydb"
+                    - name: POSTGRES_PASSWORD
+                      value: "secret"
+                    - name: POSTGRES_USER
+                      value: "admin"
+                  ports:
+                    - name: database-5432
+                      containerPort: 5432
+                  volumeMounts:
+                    - name: var-lib-postgresql-data
+                      mountPath: /var/lib/postgresql/data
+            volumes:
+                - name: var-lib-postgresql-data
+                  persistentVolumeClaim:
+                    claimName: database-postgres-data

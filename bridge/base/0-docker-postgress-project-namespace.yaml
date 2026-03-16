@@ -1,0 +1,8 @@
+#! 0-docker-postgress-project-namespace.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: docker-postgress-project
+    labels:
+        com.docker.compose.project: docker-postgress-project

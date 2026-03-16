@@ -1,0 +1,42 @@
+#! backend-deployment.yaml
+# Generated code, do not edit
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: backend
+    namespace: docker-postgress-project
+    labels:
+        com.docker.compose.project: docker-postgress-project
+        com.docker.compose.service: backend
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            com.docker.compose.project: docker-postgress-project
+            com.docker.compose.service: backend
+    strategy:
+        type: Recreate
+    template:
+        metadata:
+            labels:
+                com.docker.compose.project: docker-postgress-project
+                com.docker.compose.service: backend
+                com.docker.compose.network.assinet: "true"
+        spec:
+            restartPolicy: Always
+            containers:
+                - name: backend-api
+                  image: docker-postgress-project-backend
+                  imagePullPolicy: IfNotPresent
+                  env:
+                    - name: DB_HOST
+                      value: "postgres_db"
+                    - name: POSTGRES_DB
+                      value: "mydb"
+                    - name: POSTGRES_PASSWORD
+                      value: "secret"
+                    - name: POSTGRES_USER
+                      value: "admin"
+                  ports:
+                    - name: backend-3000
+                      containerPort: 3000

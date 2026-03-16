@@ -1,0 +1,13 @@
+#! kustomization.yaml
+# Generated code, do not edit
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+    - 0-docker-postgress-project-namespace.yaml
+    - assinet-network-policy.yaml
+    - backend-deployment.yaml
+    - backend-expose.yaml
+    - backend-service.yaml
+    - database-deployment.yaml
+    - database-expose.yaml
+    - database-postgres_data-persistentVolumeClaim.yaml

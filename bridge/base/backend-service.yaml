@@ -1,0 +1,21 @@
+# check if there is at least one published port
+
+#! backend-service.yaml
+# Generated code, do not edit
+apiVersion: v1
+kind: Service
+metadata:
+    name: backend-published
+    namespace: docker-postgress-project
+    labels:
+        com.docker.compose.project: docker-postgress-project
+        com.docker.compose.service: backend
+spec:
+    selector:
+        com.docker.compose.project: docker-postgress-project
+        com.docker.compose.service: backend
+    ports:
+        - name: backend-3000
+          port: 3000
+          protocol: TCP
+          targetPort: backend-3000
